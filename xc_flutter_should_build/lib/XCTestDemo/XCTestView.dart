@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../XCShouldBuild/XCState.dart';
 import 'XCTestView1.dart';
 
@@ -18,10 +17,6 @@ class _XCTestViewState extends XCState {
         return XCTestView1();
       }));
     });
-
-    // Future.delayed(Duration(seconds: 10), () {
-    //   aFunc();
-    // });
   }
 
   @override

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../XCShouldBuild/XCState.dart';
 import 'XCTestView1.dart';
 
@@ -28,7 +27,6 @@ class _XCUseSubstanceTestViewState extends XCState {
     });
   }
 
-  /// After [_aCountAsSubstance] changed and [XCState.reload] called, [_XCUseSubstanceTestViewState.shouldBuild] will be called.
   var _aCountAsSubstance = 0;
 
   @override
@@ -38,19 +36,19 @@ class _XCUseSubstanceTestViewState extends XCState {
             "_XCUseSubstanceTestView, if you use `shouldBuild`, it can avoid rebuilding when pushing or popping, _aCountAsSubstance = $_aCountAsSubstance "));
   }
 
+  /// only effect to pushing or poping, no effect to [XCState.reload]
   @override
   bool useSubstance() {
     return true;
   }
 
+  /// only effect to pushing or poping, no effect to [XCState.reload]
   @override
   substance() {
     return _aCountAsSubstance;
   }
 
-  /// After [_aCountAsSubstance] changed and [XCState.reload] called, [_XCUseSubstanceTestViewState.shouldBuild] will be called.
   void aFunc() {
-    // _aCountAsSubstance++;
     reload();
   }
 
