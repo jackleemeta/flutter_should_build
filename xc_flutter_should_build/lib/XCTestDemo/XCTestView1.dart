@@ -3,10 +3,10 @@ import '../XCShouldBuild/XCState.dart';
 
 class XCTestView1 extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _XCTestView1();
+  State<StatefulWidget> createState() => _XCTestView1State();
 }
 
-class _XCTestView1 extends XCState {
+class _XCTestView1State extends XCState {
   @override
   Widget shouldBuild(BuildContext context) {
     return Center(
@@ -15,12 +15,12 @@ class _XCTestView1 extends XCState {
               Navigator.pop(context);
             },
             child: Text(
-                "_XCTestView1, if you use shouldBuild, it can avoid rebuilding when pushing or popping")));
+                "_XCTestView1, if you use `shouldBuild`, it can avoid rebuilding when pushing or popping")));
   }
 
   @override
   void dispose() {
     super.dispose();
-    debugPrint("_XCTestView1 dispose");
+    debugPrint("_XCTestView1State dispose");
   }
 }

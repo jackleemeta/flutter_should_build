@@ -3,29 +3,41 @@ import 'XCShouldBuild.dart';
 
 /// ## Sumarry
 
-///  a way of resolving the issue of rebuilding when a navigator is pushing or popping
+/// - this is a way of resolving the issue of rebuilding stateful widget when a navigator is pushing or popping
 
-///  associated issue：https://github.com/flutter/flutter/issues/11655?tdsourcetag=s_pcqq_aiomsg
+/// - associated issue：https://github.com/flutter/flutter/issues/11655?tdsourcetag=s_pcqq_aiomsg
 
 ///  ## Usage
 
-///  1. import XCShouldBuild.dart and XCState.dart
+/// 1. import XCShouldBuild.dart and XCState.dart
 
-///  2.  all classes of State inherit from [XCState]，not inherit from [State]
+/// 2. make all classes of State inherit from [XCState]，do not inherit from [State]
 
-///  3. override [XCState.shouldBuild]，do not override [State.build]
+/// 3. override [XCState.shouldBuild]，do not override [State.build]
 
-///  4. use [XCState.reload] to reload，do not use [State.setState] to reload
+/// 4. use [XCState.reload] to reload，do not use [State.setState] to reload
 abstract class XCState<T> extends State {
   bool _isShouldBuild = false;
 
   @override
   Widget build(BuildContext context) {
-    bool aBool = useSubstance();
+    bool willUseSubstance = useSubstance();
+
     return XCShouldBuild<T>(
-        substance: aBool ? substance() : null,
-        xcShouldBuild: (oldSubstance, newSubstance) =>
-            aBool ? oldSubstance != newSubstance : _isShouldBuild,
+        substance: willUseSubstance ? substance() : null,
+        shouldBuildFunction: (oldSubstance, newSubstance) {
+          bool willReload;
+          if (_isShouldBuild) {
+            willReload = true;
+          } else {
+            if (willUseSubstance) {
+              willReload = oldSubstance != newSubstance;
+            } else {
+              willReload = false;
+            }
+          }
+          return willReload;
+        },
         builder: (BuildContext context) {
           _isShouldBuild = false;
           return shouldBuild(context);

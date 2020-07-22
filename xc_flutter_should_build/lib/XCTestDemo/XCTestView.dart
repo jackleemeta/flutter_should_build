@@ -5,10 +5,10 @@ import 'XCTestView1.dart';
 
 class XCTestView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _XCTestView();
+  State<StatefulWidget> createState() => _XCTestViewState();
 }
 
-class _XCTestView extends XCState {
+class _XCTestViewState extends XCState {
   @override
   void initState() {
     super.initState();
@@ -18,18 +18,26 @@ class _XCTestView extends XCState {
         return XCTestView1();
       }));
     });
+
+    // Future.delayed(Duration(seconds: 10), () {
+    //   aFunc();
+    // });
   }
 
   @override
   Widget shouldBuild(BuildContext context) {
     return Center(
         child: Text(
-            "_XCTestView, if you use shouldBuild, it can avoid rebuilding when pushing or popping"));
+            "_XCTestView, if you use `shouldBuild`, it can avoid rebuilding when pushing or popping"));
+  }
+
+  void aFunc() {
+    reload();
   }
 
   @override
   void dispose() {
     super.dispose();
-    debugPrint("_XCTestView dispose");
+    debugPrint("_XCTestViewState dispose");
   }
 }

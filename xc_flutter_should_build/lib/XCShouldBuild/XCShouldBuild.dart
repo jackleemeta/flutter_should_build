@@ -5,11 +5,12 @@ typedef XCShouldBuildFunction<T> = bool Function(
 
 class XCShouldBuild<T> extends StatefulWidget {
   final T substance; // substance
-  final XCShouldBuildFunction<T> xcShouldBuild;
+  final XCShouldBuildFunction<T> shouldBuildFunction;
   final WidgetBuilder builder;
-  XCShouldBuild({this.substance, this.xcShouldBuild, @required this.builder})
+  XCShouldBuild(
+      {this.substance, this.shouldBuildFunction, @required this.builder})
       : assert(() {
-          if (XCShouldBuild == null) {
+          if (builder == null) {
             throw FlutterError.fromParts(<DiagnosticsNode>[
               ErrorSummary('error in XCShouldBuild: builder must exist')
             ]);
@@ -21,9 +22,6 @@ class XCShouldBuild<T> extends StatefulWidget {
 }
 
 class _XCShouldBuildState<T> extends State<XCShouldBuild> {
-  @override
-  XCShouldBuild<T> get widget => super.widget;
-
   Widget oldWidget;
   T oldSubstance;
 
@@ -34,9 +32,9 @@ class _XCShouldBuildState<T> extends State<XCShouldBuild> {
     final newSubstance = widget.substance;
 
     if (_isInit ||
-        (widget.xcShouldBuild == null
+        (widget.shouldBuildFunction == null
             ? true
-            : widget.xcShouldBuild(oldSubstance, newSubstance))) {
+            : widget.shouldBuildFunction(oldSubstance, newSubstance))) {
       _isInit = false;
       oldSubstance = newSubstance;
       oldWidget = widget.builder(context);

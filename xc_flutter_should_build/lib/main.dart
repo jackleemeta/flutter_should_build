@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'XCTestDemo/XCTestView.dart';
+import 'XCTestDemo/XCUseSubstanceTestView.dart';
 
 void main() => runApp(MyApp());
 
@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if (_counter == 1) {
         Navigator.push(context,
             MaterialPageRoute(builder: (BuildContext context) {
-          return XCTestView();
+          return XCUseSubstanceTestView();
         }));
       }
     });
