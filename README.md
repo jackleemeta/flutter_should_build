@@ -24,15 +24,16 @@
 
 class _XCTestViewState extends XCState {
 
-    @override
-    Widget shouldBuild(BuildContext context) {
-      return Center(
-          child: Text("_XCTestView, if you use shouldBuild, it can avoid rebuilding when pushing or popping"));
-    }
+  @override
+  Widget shouldBuild(BuildContext context) {
+    return Center(
+        child: Text(
+            "_XCTestView, if you use `shouldBuild`, it can avoid rebuilding when pushing or popping"));
+  }
     
-    void aFunc() {
-      reload()
-    }
+  void aFunc() {
+    reload()
+  }
 
 }
 
@@ -40,31 +41,35 @@ class _XCTestViewState extends XCState {
 
 - scene 2
 
-> override [XCState.useSubstance] and  [XCState.substance],  decide for yourself whether or not to rebuild when pushing or popping.
+> override [XCState.useSubstance] and  [XCState.substance], decide for yourself whether or not to rebuild when pushing or popping.
 
 ```
-class _XCTestView extends XCState {
+class _XCUseSubstanceTestViewState extends XCState {
+
+  var _aCountAsSubstance = 0;
+
   @override
   Widget shouldBuild(BuildContext context) {
     return Center(
         child: Text(
-            "_XCTestView, if you use shouldBuild, it can avoid rebuilding when pushing or popping"));
+            "_XCUseSubstanceTestView, if you use `shouldBuild`, it can avoid rebuilding when pushing or popping, _aCountAsSubstance = $_aCountAsSubstance "));
   }
 
+  /// only effect to pushing or poping, no effect to [XCState.reload]
   @override
   bool useSubstance() {
-    return super.useSubstance();
+    return true;
   }
 
+  /// only effect to pushing or poping, no effect to [XCState.reload]
   @override
   substance() {
-    return super.substance();
+    return _aCountAsSubstance;
   }
-  
+
   void aFunc() {
-    reload()
+    reload();
   }
-  
 }
 ```
 
